@@ -11,13 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.medical.common.FileHandle;
 import com.medical.common.FilesFilter;
@@ -31,8 +29,8 @@ import com.medical.dto.PersonDTO;
 import com.medical.dto.UserInfoDTO;
 import com.medical.model.JzAspapproveExample;
 import com.medical.model.JzChronicapproveExample;
-import com.medical.model.MemberBaseinfoExample;
 import com.medical.model.JzChronicapproveExample.Criteria;
+import com.medical.model.MemberBaseinfoExample;
 import com.medical.service.ChronicApproveService;
 import com.medical.service.ChronicBillService;
 import com.medical.system.DictionaryHandle;
