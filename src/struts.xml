@@ -62,4 +62,5 @@
 	<include file="com/medical/action/struts_baseinfo.xml" />
 	<include file="com/medical/action/struts_emecheck.xml" />
 	<include file="com/medical/action/struts_chronic.xml" />
+	<include file="com/medical/action/struts_check.xml" />
 </struts>

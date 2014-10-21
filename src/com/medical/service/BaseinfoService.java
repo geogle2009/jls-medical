@@ -2,6 +2,8 @@ package com.medical.service;
 
 import java.util.List;
 
+import com.medical.common.Pager;
+import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
 
 public interface BaseinfoService {
@@ -12,4 +14,10 @@ public interface BaseinfoService {
 	public HealthDTO findByMemberId(String memberId,String ds);
 
 	public String getToolsmenu();
+	
+	// 信息核对信息列表查询
+	public List<CheckDTO> findAllMemberInfo(String url, Integer curpage,
+			String sql);
+	
+	public Pager getPager();
 }

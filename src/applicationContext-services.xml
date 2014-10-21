@@ -44,6 +44,7 @@
 	</bean>
 	<bean id="baseinfoService" class="com.medical.service.impl.BaseinfoServiceImpl">
 		<property name="memberBaseinfoDAO" ref="memberBaseinfoDAO"></property>
+		<property name="executSQLDAO" ref="executSQLDAO"></property>
 		<property name="jzBizDAO" ref="jzBizDAO"></property>
 		<property name="pager" ref="pager"></property>
 	</bean>
@@ -119,7 +120,11 @@
 		scope="request">
 		<property name="chronicBillService" ref="chronicBillService"></property>
 	</bean>
-
+	<bean id="checkAction" class="com.medical.action.CheckAction"
+		scope="request">
+		<property name="baseinfoService" ref="baseinfoService"></property>
+		<property name="searchService" ref="searchService"></property>
+	</bean>
 
 	<!-- Transaction manager for a single JDBC DataSource -->
 	<bean id="transactionManager"

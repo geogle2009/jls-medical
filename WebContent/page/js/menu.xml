@@ -19,6 +19,16 @@
 				target="mainFrame">
 			</menu>
 		</menu>
+		<menu name="医保信息核对">
+			<menu name="医保卡信息查询"
+				url="/medical/page/contentframe.jsp?url=check/checkQueryInit.action&amp;nav=救助对象管理>>医保信息核对>>医保卡信息查询"
+				target="mainFrame">
+			</menu>
+			<menu name="医保卡信息核对"
+				url="/medical/page/contentframe.jsp?url=check/checkSsnInit.action&amp;nav=救助对象管理>>医保信息核对>>医保卡信息核对"
+				target="mainFrame">
+			</menu>
+		</menu>
 	</menu>
 	<menu name="报销审批">
 		<menu name="医前救助审批">

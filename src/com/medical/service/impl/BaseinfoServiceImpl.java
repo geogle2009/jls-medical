@@ -1,14 +1,20 @@
 package com.medical.service.impl;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import com.medical.common.Pager;
+import com.medical.dao.ExecutSQLDAO;
 import com.medical.dao.JzBizDAO;
 import com.medical.dao.MemberBaseinfoDAO;
 import com.medical.dto.BizDTO;
+import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
+import com.medical.model.ExecutSQL;
 import com.medical.model.JzBiz;
 import com.medical.model.JzBizExample;
 import com.medical.model.MemberBaseinfo;
@@ -18,17 +24,9 @@ import com.medical.service.BaseinfoService;
 
 public class BaseinfoServiceImpl implements BaseinfoService {
 	private MemberBaseinfoDAO memberBaseinfoDAO;
+	private ExecutSQLDAO executSQLDAO;
 	private JzBizDAO jzBizDAO;
 	private Pager pager;
-
-	public Pager getPager() {
-		return pager;
-	}
-
-	public void setPager(Pager pager) {
-		this.pager = pager;
-	}
-
 	private String toolsmenu;
 
 	@Override
@@ -237,6 +235,44 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 
 		return result;
 	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public List<CheckDTO> findAllMemberInfo(String url, Integer curpage,
+			String sql) {
+		List<CheckDTO> list = new ArrayList<CheckDTO>();
+		ExecutSQL executSQL = new ExecutSQL();
+		executSQL.setExecutsql(sql);
+		pager.setCurrentpage(curpage);
+		pager.setUrl(url);
+		pager.setPagesize(16);
+		try {
+			pager.setAll(executSQLDAO.queryCnt(executSQL));
+			pager.setUrl(url);
+			pager.getToolsmenu();
+			executSQL.setEnd(pager.getEnd());
+			executSQL.setStart(pager.getStart());
+			List<HashMap> rs = executSQLDAO.queryRow(executSQL);
+			for (HashMap s : rs) {
+				CheckDTO e = new CheckDTO();
+				e.setFamilyno((String) s.get("FAMILYNO"));
+				e.setMembername((String) s.get("MEMBERNAME"));
+				e.setPaperid((String) s.get("PAPERID"));
+				e.setMemberId((String) s.get("MEMBER_ID"));
+				e.setDs((String)s.get("DS"));
+				e.setSsn((String) s.get("SSN"));
+				e.setSsn1((String) s.get("SSN1"));
+				e.setSsn2((String) s.get("SSN2"));
+				e.setSsn3((String) s.get("SSN3"));
+				e.setPersonstate((String) s.get("PERSONSTATE"));
+				e.setAssistType((String) s.get("ASSIST_TYPE"));
+				e.setAsort((BigDecimal) s.get("ASORT"));
+				list.add(e);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return list;
+	}
 
 	public MemberBaseinfoDAO getMemberBaseinfoDAO() {
 		return memberBaseinfoDAO;
@@ -260,6 +296,22 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 
 	public JzBizDAO getJzBizDAO() {
 		return jzBizDAO;
+	}
+
+	public ExecutSQLDAO getExecutSQLDAO() {
+		return executSQLDAO;
+	}
+
+	public void setExecutSQLDAO(ExecutSQLDAO executSQLDAO) {
+		this.executSQLDAO = executSQLDAO;
+	}
+
+	public Pager getPager() {
+		return pager;
+	}
+
+	public void setPager(Pager pager) {
+		this.pager = pager;
 	}
 
 }
