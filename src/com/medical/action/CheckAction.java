@@ -1,11 +1,23 @@
 package com.medical.action;
 
+import java.io.UnsupportedEncodingException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.tempuri.IService1;
+import org.tempuri.IService1Proxy;
 
 import com.medical.dto.CheckDTO;
 import com.medical.dto.OrganDTO;
 import com.medical.dto.UserInfoDTO;
+import com.medical.dto.YBCheckDTO;
 import com.medical.service.BaseinfoService;
 import com.medical.service.SearchService;
 import com.opensymphony.xwork2.ActionContext;
@@ -24,7 +36,12 @@ public class CheckAction extends ActionSupport {
 	private String operational;
 	private String value;
 	private String oid;
-	
+	private String memberId;
+	private String ds;
+	private String paperid;
+	private String membername;
+	private List<YBCheckDTO> ybcds;
+	private YBCheckDTO ybcheckDTO;
 	
 	@SuppressWarnings("rawtypes")
 	public String checkQueryInit(){
@@ -67,7 +84,8 @@ public class CheckAction extends ActionSupport {
 					+ " on mem.member_id = ts.member_id and mem.ds = ts.ds "
 					+ " where mem.on_no like '" + oid + "%' "
 					+ jwhere 
-					+ " and mem.o_ps = '正常' and mem.ds = '1' ";
+					+ " and mem.o_ps = '正常' and mem.ds = '1' " 
+					+ " and substr(mem.assist_type,0,1)='1' ";
 			session.put("sql", sql);
 		} else {
 			sql = (String) session.get("sql");
@@ -116,7 +134,8 @@ public class CheckAction extends ActionSupport {
 					+ " where mem.on_no like '" + oid + "%' "
 					+ jwhere 
 					+ " and mem.o_ps = '正常' and mem.ds = '1' "
-					+ " and mem.ssn is null ";
+					+ " and substr(mem.assist_type,0,1)='1' "
+					+ " and ts.ssn1 is null ";
 			session.put("sql", sql);
 		} else {
 			sql = (String) session.get("sql");
@@ -135,6 +154,60 @@ public class CheckAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserInfoDTO user = (UserInfoDTO) session.get("user");
 		this.setOrgs(this.searchService.getOrganList(user.getOrganizationId()));
+		return SUCCESS;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String installSsnInit() throws UnsupportedEncodingException, DocumentException{
+		CheckDTO cdto = new CheckDTO();
+		cdto.setMemberId(memberId);
+		cdto.setDs(ds);
+		checkDTO = this.baseinfoService.findMemberInfo(cdto);
+		try {
+			String name=java.net.URLDecoder.decode(membername , "utf-8");
+			IService1 iService1 = new IService1Proxy();
+			String xml = iService1.getMedicareInfoSingle("220281199608153867", "赵月");
+			Document document = DocumentHelper.parseText(xml);
+			String resultFlag = document.selectSingleNode(
+					"//GetMedicareInfoSingle/Result/ResultFlag").getText();
+			String message = document.selectSingleNode(
+					"//GetMedicareInfoSingle/Result/Message").getText();
+			if("1".equals(resultFlag)){
+				List list = document.selectNodes("//GetMedicareInfoSingle/NewDataSet/jljzj"); 
+				Iterator iter = list.iterator();
+				String membername="";
+				String paperid="";
+				ybcds = new ArrayList<YBCheckDTO>();
+				int i=0;
+				ybcheckDTO = new YBCheckDTO();
+				while(iter.hasNext()) {
+					Element ele =(Element)iter.next();
+		        	String ssn = ele.element("医保编号").getText();
+		        	membername = ele.element("姓名").getText();
+		        	paperid = ele.element("身份证号码").getText();
+		        	if(i==0){
+		        		ybcheckDTO.setSsn1(ssn);
+		        	}else if(i==1){
+		        		ybcheckDTO.setSsn2(ssn);
+		        	}else if(i==2){
+		        		ybcheckDTO.setSsn3(ssn);
+		        	}
+		            i++;
+		        }
+				
+				ybcheckDTO.setYbmembername(membername);
+				ybcheckDTO.setYbpaperid(paperid);
+				ybcheckDTO.setMessage(message);
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	public String installSsn(){
+		
 		return SUCCESS;
 	}
 
@@ -212,5 +285,41 @@ public class CheckAction extends ActionSupport {
 	}
 	public void setOid(String oid) {
 		this.oid = oid;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public String getDs() {
+		return ds;
+	}
+	public void setDs(String ds) {
+		this.ds = ds;
+	}
+	public String getPaperid() {
+		return paperid;
+	}
+	public void setPaperid(String paperid) {
+		this.paperid = paperid;
+	}
+	public String getMembername() {
+		return membername;
+	}
+	public void setMembername(String membername) {
+		this.membername = membername;
+	}
+	public List<YBCheckDTO> getYbcds() {
+		return ybcds;
+	}
+	public void setYbcds(List<YBCheckDTO> ybcds) {
+		this.ybcds = ybcds;
+	}
+	public YBCheckDTO getYbcheckDTO() {
+		return ybcheckDTO;
+	}
+	public void setYbcheckDTO(YBCheckDTO ybcheckDTO) {
+		this.ybcheckDTO = ybcheckDTO;
 	}
 }

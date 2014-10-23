@@ -33,5 +33,10 @@
 			<result name="success">/page/check/check_ssn.jsp
 			</result>
 		</action>
+		<action name="installSsnInit" class="checkAction" method="installSsnInit">
+			<result name="success">/page/check/view_install_ssn.jsp
+			</result>
+		</action>
+		
 	</package>
 </struts>

@@ -273,6 +273,26 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		}
 		return list;
 	}
+	
+	public CheckDTO findMemberInfo(CheckDTO checkDTO){
+		CheckDTO cdto = new CheckDTO();
+		MemberBaseinfoExample example = new MemberBaseinfoExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andMemberIdEqualTo(checkDTO.getMemberId());
+		criteria.andDsEqualTo(checkDTO.getDs());
+		MemberBaseinfo info = memberBaseinfoDAO.selectByExample(example).get(0);
+		cdto.setFamilyno(info.getFamilyno());
+		cdto.setMembername(info.getMembername());
+		cdto.setPaperid(info.getPaperid());
+		cdto.setSsn(info.getSsn());
+		cdto.setDs(info.getDs());
+		cdto.setMemberId(info.getMemberId());
+		cdto.setAssistType(info.getAssistType());
+		cdto.setAsort(info.getAsort());
+		cdto.setPersonstate(info.getPersonstate());
+		cdto.setMasterName(info.getMasterName());
+		return cdto;
+	}
 
 	public MemberBaseinfoDAO getMemberBaseinfoDAO() {
 		return memberBaseinfoDAO;

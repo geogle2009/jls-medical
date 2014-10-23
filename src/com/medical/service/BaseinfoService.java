@@ -20,4 +20,6 @@ public interface BaseinfoService {
 			String sql);
 	
 	public Pager getPager();
+	
+	public CheckDTO findMemberInfo(CheckDTO checkDTO);
 }

@@ -217,6 +217,5 @@ public class CheckDTO {
 	public void setSsn3(String ssn3) {
 		this.ssn3 = ssn3;
 	}
-	
-	
+
 }

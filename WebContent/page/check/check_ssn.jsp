@@ -7,6 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>医保卡信息核对</title>
 <link href="../css/table-style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function checkssn(memberId,ds,paperid,membername){
+	var url="installSsnInit.action?memberId="+memberId+"&ds="+ds+"&paperid="+paperid+"&membername="+encodeURI(encodeURI(membername));
+	window.showModalDialog(url,'',"dialogHeight: 350px; dialogWidth: 700px; center: Yes; resizable: Yes; status: No;");
+}
+</script>
 </head>
 <body>
 <s:form theme="simple" action="checkSsn" method="post"
@@ -72,7 +78,7 @@
 					否
 				</s:else>
 			</td>
-			<td><a href="#">核对</a></td>
+			<td><a href="javascript:void(0)" onclick="checkssn('<s:property value='memberId'/>','<s:property value='ds'/>','<s:property value='paperid'/>','<s:property value='membername'/>');">医保卡号核对</a></td>
 		</tr>
 	</s:iterator>
 </table>
