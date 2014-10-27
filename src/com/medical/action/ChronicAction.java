@@ -314,7 +314,7 @@ public class ChronicAction extends ActionSupport {
 				sql = sql + " and t.on_no like '" + orgno + "%'";
 			}
 			sql = sql
-					+ "  order by family_id, aprtime2 asc , chronicapprove_id desc ";
+					+ "  order by  chronicapprove_id desc ";
 			session.put("sql", sql);
 		} else {
 			sql = (String) session.get("sql");
