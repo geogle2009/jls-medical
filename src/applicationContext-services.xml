@@ -47,6 +47,7 @@
 		<property name="executSQLDAO" ref="executSQLDAO"></property>
 		<property name="jzBizDAO" ref="jzBizDAO"></property>
 		<property name="pager" ref="pager"></property>
+		<property name="testSsnDAO" ref="testSsnDAO"></property>
 	</bean>
 	<bean id="emeCheckService" class="com.medical.service.impl.EmeCheckServiceImpl">
 		<property name="pager" ref="pager"></property>

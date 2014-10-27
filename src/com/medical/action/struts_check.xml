@@ -37,6 +37,21 @@
 			<result name="success">/page/check/view_install_ssn.jsp
 			</result>
 		</action>
-		
+		<action name="installSsn" class="checkAction" method="installSsn">
+		<result type="json">
+				<param name="root">
+					result
+                </param>
+				<param name="ignoreHierarchy">
+					false
+                </param>
+				<param name="noCache">
+					true
+                </param>
+				<param name="excludeNullProperties">
+					true
+                </param>
+			</result>
+		</action>
 	</package>
 </struts>

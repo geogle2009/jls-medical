@@ -24,4 +24,5 @@
 	<sqlMap resource="com/medical/map/JZ_ANNEX_SqlMap.xml" />
 	<sqlMap resource="com/medical/map/JZ_ASPAPPROVE_SqlMap.xml" />
 	<sqlMap resource="com/medical/map/JZ_CHRONICBILLEMPLOY_SqlMap.xml" />
+	<sqlMap resource="com/medical/map/TEST_SSN_SqlMap.xml" />
 </sqlMapConfig>

@@ -22,4 +22,6 @@ public interface BaseinfoService {
 	public Pager getPager();
 	
 	public CheckDTO findMemberInfo(CheckDTO checkDTO);
+	
+	public int updateTestSsn(CheckDTO checkDTO);
 }

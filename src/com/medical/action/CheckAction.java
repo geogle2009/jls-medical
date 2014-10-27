@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -42,6 +44,7 @@ public class CheckAction extends ActionSupport {
 	private String membername;
 	private List<YBCheckDTO> ybcds;
 	private YBCheckDTO ybcheckDTO;
+	private String result;
 	
 	@SuppressWarnings("rawtypes")
 	public String checkQueryInit(){
@@ -162,11 +165,15 @@ public class CheckAction extends ActionSupport {
 		CheckDTO cdto = new CheckDTO();
 		cdto.setMemberId(memberId);
 		cdto.setDs(ds);
+		System.out.println("开始时间："+System.currentTimeMillis());
 		checkDTO = this.baseinfoService.findMemberInfo(cdto);
+		System.out.println("结束时间："+System.currentTimeMillis());
 		try {
 			String name=java.net.URLDecoder.decode(membername , "utf-8");
 			IService1 iService1 = new IService1Proxy();
-			String xml = iService1.getMedicareInfoSingle("220281199608153867", "赵月");
+			System.out.println("Webservice开始时间："+System.currentTimeMillis());
+			String xml = iService1.getMedicareInfoSingle(paperid, name);
+			System.out.println("Webservice结束时间："+System.currentTimeMillis());
 			Document document = DocumentHelper.parseText(xml);
 			String resultFlag = document.selectSingleNode(
 					"//GetMedicareInfoSingle/Result/ResultFlag").getText();
@@ -207,7 +214,10 @@ public class CheckAction extends ActionSupport {
 	}
 	
 	public String installSsn(){
-		
+		JSONObject json = new JSONObject();
+		int u=baseinfoService.updateTestSsn(checkDTO);
+		json.put("u", u);
+		result = json.toString();
 		return SUCCESS;
 	}
 
@@ -321,5 +331,11 @@ public class CheckAction extends ActionSupport {
 	}
 	public void setYbcheckDTO(YBCheckDTO ybcheckDTO) {
 		this.ybcheckDTO = ybcheckDTO;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 }

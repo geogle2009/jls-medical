@@ -55,7 +55,7 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<generatedKey column="CHRONICAPPROVE_ID"
 				sqlStatement="select XCHRONICAPPROVE_ID.nextval from dual" /> -->
-		<table schema="yljzn" tableName="SYS_T_EMPLOYEE">
+		<table schema="yljzn" tableName="TEST_SSN">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 		</table>
 	</ibatorContext>

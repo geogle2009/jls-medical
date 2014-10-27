@@ -79,4 +79,7 @@
 	<bean id="jzChronicbillemployDAO" class="com.medical.dao.JzChronicbillemployDAOImpl">
 		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
 	</bean>
+		<bean id="testSsnDAO" class="com.medical.dao.TestSsnDAOImpl">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"></property>
+	</bean>
 </beans>

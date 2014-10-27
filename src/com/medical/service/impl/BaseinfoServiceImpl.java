@@ -11,6 +11,7 @@ import com.medical.common.Pager;
 import com.medical.dao.ExecutSQLDAO;
 import com.medical.dao.JzBizDAO;
 import com.medical.dao.MemberBaseinfoDAO;
+import com.medical.dao.TestSsnDAO;
 import com.medical.dto.BizDTO;
 import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
@@ -20,6 +21,8 @@ import com.medical.model.JzBizExample;
 import com.medical.model.MemberBaseinfo;
 import com.medical.model.MemberBaseinfoExample;
 import com.medical.model.MemberBaseinfoExample.Criteria;
+import com.medical.model.TestSsn;
+import com.medical.model.TestSsnExample;
 import com.medical.service.BaseinfoService;
 
 public class BaseinfoServiceImpl implements BaseinfoService {
@@ -28,6 +31,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 	private JzBizDAO jzBizDAO;
 	private Pager pager;
 	private String toolsmenu;
+	private TestSsnDAO testSsnDAO;
 
 	@Override
 	public HealthDTO findByMemberId(String memberId,String ds) {
@@ -293,6 +297,20 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		cdto.setMasterName(info.getMasterName());
 		return cdto;
 	}
+	
+	public int updateTestSsn(CheckDTO checkDTO){
+		int u=0;
+		TestSsn record = new TestSsn();
+		TestSsnExample example = new TestSsnExample();
+		com.medical.model.TestSsnExample.Criteria criteria = example.createCriteria();
+		criteria.andMemberIdEqualTo(checkDTO.getMemberId());
+		criteria.andDsEqualTo(checkDTO.getDs());
+		record.setSsn1(checkDTO.getSsn1());
+		record.setSsn2(checkDTO.getSsn2());
+		record.setSsn3(checkDTO.getSsn3());
+		u = testSsnDAO.updateByExampleSelective(record, example);
+		return u;
+	}
 
 	public MemberBaseinfoDAO getMemberBaseinfoDAO() {
 		return memberBaseinfoDAO;
@@ -332,6 +350,14 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 
 	public void setPager(Pager pager) {
 		this.pager = pager;
+	}
+
+	public TestSsnDAO getTestSsnDAO() {
+		return testSsnDAO;
+	}
+
+	public void setTestSsnDAO(TestSsnDAO testSsnDAO) {
+		this.testSsnDAO = testSsnDAO;
 	}
 
 }
