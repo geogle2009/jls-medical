@@ -57,8 +57,16 @@
 				sqlStatement="select XCHRONICAPPROVE_ID.nextval from dual" /> <table schema="yljzn" tableName="TEST_SSN">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 		</table> -->
-		<table schema="yljzn" tableName="JZ_CHRONICSTATUS"> <property 
+		<!-- <table schema="yljzn" tableName="JZ_CHRONICSTATUS"> <property 
 			name="ignoreQualifiersAtRuntime" value="true" /> <generatedKey column="CHRONICSTATUS_ID" 
 			sqlStatement="select XCHRONICSTATUS_ID.nextval from dual" /> </table>
+			<table 
+			schema="yljzn" tableName="JZ_CHRONICAPPROVE"> <property name="ignoreQualifiersAtRuntime" 
+			value="true" /> <generatedKey column="CHRONICAPPROVE_ID" sqlStatement="select 
+			XCHRONICAPPROVE_ID.nextval from dual" /> </table> 
+			 <table schema="yljzn" tableName="V_CHRONIC">
+			<property name="ignoreQualifiersAtRuntime" value="true" /></table> -->
+			<table schema="yljzn" tableName="CURRECT_CHRONIC"> <property 
+			name="ignoreQualifiersAtRuntime" value="true" />   </table>
 	</ibatorContext>
 </ibatorConfiguration>

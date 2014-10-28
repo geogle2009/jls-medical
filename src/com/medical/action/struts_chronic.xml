@@ -17,8 +17,8 @@
 		<global-results>
 			<result name="login" type="redirect">
 				/logout.jsp
-            </result>
-            <result name="norole" type="redirect">/page/norole.jsp</result>
+			</result>
+			<result name="norole" type="redirect">/page/norole.jsp</result>
 		</global-results>
 		<action name="checkchronicmemberinit" class="chronicAction"
 			method="checkChronicMemberInit">
@@ -33,12 +33,12 @@
 			</result>
 			<result name="4">
 				/page/business/chronic/result.jsp
-            </result>
+			</result>
 		</action>
 		<action name="checkchronicmember" class="chronicAction" method="checkChronicMember">
 			<result name="success">
 				/page/business/chronic/checkview.jsp
-		</result>
+			</result>
 		</action>
 		<action name="approvechronicmemberinit" class="chronicAction"
 			method="approveChronicMemberInit">
@@ -71,24 +71,24 @@
 			method="queryChronicMembersDoneInit">
 			<result name="success">
 				/page/business/chronic/querychronicmembersdone.jsp
-		</result>
+			</result>
 		</action>
 		<action name="querychronicmembersdone" class="chronicAction"
 			method="queryChronicMembersDone">
 			<result name="success">
 				/page/business/chronic/querychronicmembersdone.jsp
-		</result>
+			</result>
 		</action>
 		<action name="querychronicmemberscard" class="chronicAction"
 			method="queryChronicMembersCard">
 			<result name="success">
 				/page/business/chronic/querychronicmemberscard.jsp
-		</result>
+			</result>
 		</action>
 		<action name="viewcard" method="viewcard" class="chronicAction">
 			<result name="success">
 				/page/business/chronic/viewcard.jsp
-		</result>
+			</result>
 		</action>
 		<action name="viewapprovelist" method="viewApproveList" class="chronicAction">
 			<result name="success">
@@ -106,16 +106,16 @@
 			<result type="json">
 				<param name="root">
 					result
-                </param>
+				</param>
 				<param name="ignoreHierarchy">
 					false
-                </param>
+				</param>
 				<param name="noCache">
 					true
-                </param>
+				</param>
 				<param name="excludeNullProperties">
 					true
-                </param>
+				</param>
 			</result>
 		</action>
 		<action name="checkhealthrecord" method="checkHealthrecord"
@@ -123,16 +123,16 @@
 			<result type="json">
 				<param name="root">
 					result
-                </param>
+				</param>
 				<param name="ignoreHierarchy">
 					false
-                </param>
+				</param>
 				<param name="noCache">
 					true
-                </param>
+				</param>
 				<param name="excludeNullProperties">
 					true
-                </param>
+				</param>
 			</result>
 		</action>
 		<action name="generatebillInit" method="generatebillInit"
@@ -151,41 +151,41 @@
 			class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/querychronicbilldetail.jsp
-		</result>
+			</result>
 		</action>
 		<action name="querychronicbilldetail" method="querychronicbilldetail"
 			class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/querychronicbilldetail.jsp
-		</result>
+			</result>
 		</action>
 		<action name="querychronic" method="querychronic" class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/querychronic.jsp
-		</result>
+			</result>
 		</action>
 		<action name="querychronicinit" method="querychronicinit"
 			class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/querychronic.jsp
-		</result>
+			</result>
 			<result name="result">
 				/page/business/chronic/result.jsp
-		</result>
+			</result>
 		</action>
 		<action name="chronichandleinit" method="chronichandleinit"
 			class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/chronichandle.jsp
-		</result>
+			</result>
 			<result name="result">
 				/page/business/chronic/result1.jsp
-		</result>
+			</result>
 		</action>
 		<action name="chronichandle" method="chronichandle" class="chronicBillAction">
 			<result name="success">
 				/page/business/chronic/chronicresult.jsp
-		</result>
+			</result>
 		</action>
 		<action name="chronicmemberstat" method="chronicmemberstat"
 			class="chronicAction">
@@ -197,7 +197,19 @@
 			class="chronicAction">
 			<result name="success">
 				/page/business/chronic/querychronicstat.jsp
-	</result>
+			</result>
+		</action>
+		<action name="querychroniccinit" method="querychroniccinit"
+			class="chronicAction">
+			<result name="success">
+				/page/business/chronic/querychronicc.jsp
+			</result>
+		</action>
+		<action name="querychronicc" method="querychronicc"
+			class="chronicAction">
+			<result name="success">
+				/page/business/chronic/querychronicc.jsp
+			</result>
 		</action>
 	</package>
 	<package name="applysalvation" extends="json-default"
@@ -215,7 +227,7 @@
 		<global-results>
 			<result name="login" type="redirect">
 				/logout.jsp
-            </result>
+			</result>
 		</global-results>
 		<action name="applysalinit" method="applySalInit" class="chronicAction">
 			<result name="1">
@@ -229,7 +241,7 @@
 			</result>
 			<result name="success">
 				/page/business/applysalvation/result.jsp
-		</result>
+			</result>
 		</action>
 		<action name="queryapplysalperson" method="queryApplySalPerson"
 			class="chronicAction">
@@ -268,54 +280,55 @@
 		<action name="printasp" method="printAsp" class="chronicAction"></action>
 		<action name="checkaspinit" method="checkAspInit" class="chronicAction">
 			<result name="success">
-				/page/business/applysalvation/checkhealthrecord.jsp</result>
+				/page/business/applysalvation/checkhealthrecord.jsp
+			</result>
 		</action>
 		<action name="checkasp" method="checkAsp" class="chronicAction">
 			<result type="json">
 				<param name="root">
 					result
-                </param>
+				</param>
 				<param name="ignoreHierarchy">
 					false
-                </param>
+				</param>
 				<param name="noCache">
 					true
-                </param>
+				</param>
 				<param name="excludeNullProperties">
 					true
-                </param>
+				</param>
 			</result>
 		</action>
 		<action name="queryaspbyssn" method="queryAspBySsn" class="chronicAction">
 			<result type="json">
 				<param name="root">
 					result
-                </param>
+				</param>
 				<param name="ignoreHierarchy">
 					false
-                </param>
+				</param>
 				<param name="noCache">
 					true
-                </param>
+				</param>
 				<param name="excludeNullProperties">
 					true
-                </param>
+				</param>
 			</result>
 		</action>
 		<action name="delfile" method="delfile" class="chronicAction">
 			<result type="json">
 				<param name="root">
 					result
-                </param>
+				</param>
 				<param name="ignoreHierarchy">
 					false
-                </param>
+				</param>
 				<param name="noCache">
 					true
-                </param>
+				</param>
 				<param name="excludeNullProperties">
 					true
-                </param>
+				</param>
 			</result>
 		</action>
 	</package>

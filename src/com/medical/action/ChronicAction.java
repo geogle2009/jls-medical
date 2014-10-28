@@ -207,14 +207,11 @@ public class ChronicAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserInfoDTO user = (UserInfoDTO) session.get("user");
 		String orgno = user.getOrganizationId();
-		String orgno1 = orgno.substring(0, 2) + "0"
-				+ user.getOrganizationId().substring(2, orgno.length());
 		JzChronicapproveExample e = new JzChronicapproveExample();
 		if (null == cur_page) {
 			cur_page = 1;
 			Criteria c1 = e.createCriteria();
-
-			c1.andFamilyIdLike(orgno + "%").andFlagEqualTo(new Short("1"))
+			c1.andAreaLike(orgno + "%").andFlagEqualTo(new Short("1"))
 					.andAprlevelEqualTo((short) (orgno.length() / 2));
 			if ("ssn".equals(term)) {
 				c1.andSsnEqualTo(value);
@@ -223,22 +220,24 @@ public class ChronicAction extends ActionSupport {
 			} else if ("familyno".equals(term)) {
 				c1.andFamilyIdEqualTo(value);
 			}
-			Criteria c2 = e.createCriteria();
-			c2.andFamilyIdLike(orgno1 + "%").andFlagEqualTo(new Short("1"))
-					.andAprlevelEqualTo((short) (orgno.length() / 2));
-			if ("ssn".equals(term)) {
-				c2.andSsnEqualTo(value);
-			} else if ("name".equals(term)) {
-				c2.andNameLike("%" + value + "%");
-			} else if ("familyno".equals(term)) {
-				c2.andFamilyIdEqualTo(value);
+			if ("医保接口核对".equals(icdid)) {
+				c1.andApridea1EqualTo("医保接口核对").andApridea2EqualTo("医保接口核对");
+			} else if ("民政审批".equals(icdid)) {
+				c1.andApridea1NotEqualTo("医保接口核对").andApridea1NotEqualTo(
+						"医保接口核对");
+			} else {
 			}
-			e.or(c2);
+			if ("1".equals(ds)) {
+				c1.andFamilyIdLike("2202%");
+			} else if ("2".equals(ds)) {
+				c1.andFamilyIdLike("22002%");
+			} else {
+			}
 			session.put("sql", e);
 		} else {
 			e = (JzChronicapproveExample) session.get("sql");
 		}
-		e.setOrderByClause("family_id, aprtime1 desc , chronicapprove_id desc");
+		e.setOrderByClause(" chronicapprove_id desc");
 		cas = chronicApproveService
 				.findApprove(
 						"page/business/chronic/querychronicmembers.action",
@@ -313,8 +312,7 @@ public class ChronicAction extends ActionSupport {
 			if (!"".equals(orgno)) {
 				sql = sql + " and t.on_no like '" + orgno + "%'";
 			}
-			sql = sql
-					+ "  order by  chronicapprove_id desc ";
+			sql = sql + "  order by  chronicapprove_id desc ";
 			session.put("sql", sql);
 		} else {
 			sql = (String) session.get("sql");
@@ -866,7 +864,16 @@ public class ChronicAction extends ActionSupport {
 	public String querychronicstat() {
 		return SUCCESS;
 	}
-
+	/**
+	 * 当前慢性在保户查询
+	 * @return
+	 */
+	public String querychroniccinit(){
+		return SUCCESS;
+	}
+	public String querychronicc(){
+		return SUCCESS;
+	}
 	// 因病申请低保
 	public void setChronicApproveDTO(ChronicApproveDTO chronicApproveDTO) {
 		this.chronicApproveDTO = chronicApproveDTO;

@@ -26,13 +26,21 @@ function handle(id,type,mid,mtype){
 <title>查询</title>
 </head>
 <body>
+<table align="center" width="90%" class="t1" border="0" cellpadding="0"
+	cellspacing="0"><tr><td>
 <s:form action="querychronicmembers" method="post" theme="simple">
 查询条件：<s:select name="term" list="#{'':'全部','name':'姓名','familyno':'家庭编号','ssn':'社会保障号'}"
 		listKey="key" listValue="value">
-	</s:select>
-	查询值：<s:textfield name="value"></s:textfield>
+	</s:select>&nbsp;&nbsp;
+	查询值：<s:textfield name="value"></s:textfield>&nbsp;&nbsp;
+	审批来源：<s:select name="icdid" list="#{'':'全部','民政审批':'民政审批','医保接口核对':'医保来源'}"
+		listKey="key" listValue="value">
+	</s:select>&nbsp;&nbsp;
+	来源：<s:select name="ds" list="#{'':'全部','1':'城市','2':'农村'}"
+		listKey="key" listValue="value">
+	</s:select>&nbsp;&nbsp;
 	<s:submit value="查询"></s:submit>
-</s:form>
+</s:form></td></tr></table>
 <table align="center" width="90%" class="t1" border="0" cellpadding="0"
 	cellspacing="0">
 	<tr>
@@ -67,9 +75,9 @@ function handle(id,type,mid,mtype){
 			</s:if> <s:if test="aprresult2==2">
 			>>区县不同意 
 			</s:if> <s:if test="aprresult3==1">
-			市级同意 
+			>>市级同意 
 			</s:if> <s:if test="aprresult3==2">
-			市级不同意 
+			>>市级不同意 
 			</s:if>
 			 <s:if test="aprresult3==3">
 			体检中

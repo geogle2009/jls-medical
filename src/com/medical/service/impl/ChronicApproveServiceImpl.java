@@ -313,6 +313,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 			record.setState(status);
 			record.setApptime(new Date());
 			record.setFlag("1");
+			record.setCapid(po.getChronicapproveId().toString());
 			jzChronicstatusDAO.updateByPrimaryKey(record);
 		} else {
 			record = new JzChronicstatus();
@@ -325,6 +326,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 			record.setSsn(po.getSsn());
 			record.setMemberId(po.getMemberId());
 			record.setMemberType(po.getMemberType());
+			record.setCapid(po.getChronicapproveId().toString());
 			jzChronicstatusDAO.insertSelective(record);
 		}
 	}
