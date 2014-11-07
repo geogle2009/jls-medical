@@ -165,15 +165,15 @@ public class CheckAction extends ActionSupport {
 		CheckDTO cdto = new CheckDTO();
 		cdto.setMemberId(memberId);
 		cdto.setDs(ds);
-		System.out.println("开始时间："+System.currentTimeMillis());
+		//System.out.println("开始时间："+System.currentTimeMillis());
 		checkDTO = this.baseinfoService.findMemberInfo(cdto);
-		System.out.println("结束时间："+System.currentTimeMillis());
+		//System.out.println("结束时间："+System.currentTimeMillis());
 		try {
 			String name=java.net.URLDecoder.decode(membername , "utf-8");
 			IService1 iService1 = new IService1Proxy();
-			System.out.println("Webservice开始时间："+System.currentTimeMillis());
+			//System.out.println("Webservice开始时间："+System.currentTimeMillis());
 			String xml = iService1.getMedicareInfoSingle(paperid, name);
-			System.out.println("Webservice结束时间："+System.currentTimeMillis());
+			//System.out.println("Webservice结束时间："+System.currentTimeMillis());
 			Document document = DocumentHelper.parseText(xml);
 			String resultFlag = document.selectSingleNode(
 					"//GetMedicareInfoSingle/Result/ResultFlag").getText();
