@@ -50,10 +50,14 @@
 				url="/medical/page/contentframe.jsp?url=business/chronic/querychronicmembersdoneinit.action&amp;nav=报销审批>>日常救助查询>>日常救助查询"
 				target="mainFrame">
 			</menu>
+			<menu name="当前慢性病救助对象"
+				url="/medical/page/contentframe.jsp?url=business/chronic/querychroniccinit.action&amp;nav=报销审批>>日常救助查询>>当前慢性病救助对象"
+				target="mainFrame">
+			</menu>
 			<menu name="日常救助人数统计"
 				url="/medical/page/contentframe.jsp?url=business/chronic/chronicmemberstat.action&amp;nav=报销审批>>日常救助查询>>日常救助人数统计"
 				target="mainFrame">
-			</menu>
+			</menu>	
 			<menu name="核对健康档案"
 				url="/medical/page/contentframe.jsp?url=business/chronic/checkhealthrecordframeset.jsp&amp;nav=报销审批>>日常救助查询>>核对健康档案"
 				target="mainFrame">

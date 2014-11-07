@@ -23,6 +23,7 @@ import com.medical.dto.AspApproveDTO;
 import com.medical.dto.ChronicApproveDTO;
 import com.medical.dto.ChronicBillDTO;
 import com.medical.dto.ChronicStatusDTO;
+import com.medical.dto.CurrectChronicDTO;
 import com.medical.dto.ImgDTO;
 import com.medical.dto.OrganDTO;
 import com.medical.dto.PersonDTO;
@@ -50,6 +51,7 @@ public class ChronicAction extends ActionSupport {
 	private String result;
 	private List<PersonDTO> persons;
 	private List<ChronicApproveDTO> cas;
+	private List<CurrectChronicDTO> ccs;
 	private List<AspApproveDTO> aas;
 	private HashMap<String, String> chronics;
 	private String term;
@@ -72,6 +74,7 @@ public class ChronicAction extends ActionSupport {
 	private String icdid;
 	private String flag;
 	private String memberId;
+	private String apds;
 
 	@SuppressWarnings({ "rawtypes" })
 	public String checkChronicMemberInit() {
@@ -864,16 +867,80 @@ public class ChronicAction extends ActionSupport {
 	public String querychronicstat() {
 		return SUCCESS;
 	}
+
 	/**
 	 * 当前慢性在保户查询
+	 * 
 	 * @return
 	 */
-	public String querychroniccinit(){
+	@SuppressWarnings("rawtypes")
+	public String querychroniccinit() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
+		String orgid = userinfo.getOrganizationId();
+		DictionaryHandle dictionaryHandle = new DictionaryHandleImpl();
+		chronics = dictionaryHandle.getDsMap("007");
+		orgs = chronicApproveService.getOrganList(orgid);
 		return SUCCESS;
 	}
-	public String querychronicc(){
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String querychronicc() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
+		String orgid = userinfo.getOrganizationId();
+		DictionaryHandle dictionaryHandle = new DictionaryHandleImpl();
+		chronics = dictionaryHandle.getDsMap("007");
+		orgs = chronicApproveService.getOrganList(orgid);
+		String orgno = orgid;
+		String sql = "";
+		if (null == cur_page) {
+			sql = "select * from CURRECT_CHRONIC t where 1=1 and t.STATE = '1' and t.FLAG1 = '1' ";
+			cur_page = 1;
+			if ("ssn".equals(term)) {
+				sql = sql + " and t.ssn='" + value + "'";
+			} else if ("name".equals(term)) {
+				sql = sql + " and t.name like '%" + value + "%'";
+			} else if ("familyno".equals(term)) {
+				sql = sql + " and t.FAMILY_ID='" + value + "'";
+			} else if ("paperid".equals(term)) {
+				sql = sql + " and t.paperid='" + value + "'";
+			}
+			if ("1".equals(ds)) {
+				sql = sql + " and t.member_type='1'";
+			} else if ("2".equals(ds)) {
+				sql = sql + " and t.member_type='2'";
+			} else {
+			}
+
+			if (!"".equals(icdid)) {
+				sql = sql + " and   REGEXP_INSTR   (t.entitys,'" + icdid
+						+ "')>0";
+			}
+			if ("医保接口核对".equals(apds)) {
+				sql = sql + " t.APRIDEA1='医保接口核对' and  t.APRIDEA2='医保接口核对' ";
+
+			} else if ("民政审批".equals(apds)) {
+				sql = sql + " t.APRIDEA1<>'医保接口核对' and  t.APRIDEA2<>'医保接口核对' ";
+			} else {
+			}
+
+			if (!"".equals(orgno)) {
+				sql = sql + " and t.AREA like '" + orgno + "%'";
+			}
+			sql = sql + "  order by  t.FAMILY_ID desc ";
+			session.put("sql", sql);
+		} else {
+			sql = (String) session.get("sql");
+		}
+		ccs = chronicApproveService.findApprove3(
+				"page/business/chronic/querychronicc.action?orgid="
+						+ orgid, cur_page, sql);
+		 
+		toolsmenu = chronicApproveService.getPager().getToolsmenu();
 		return SUCCESS;
 	}
+
 	// 因病申请低保
 	public void setChronicApproveDTO(ChronicApproveDTO chronicApproveDTO) {
 		this.chronicApproveDTO = chronicApproveDTO;
@@ -1147,6 +1214,22 @@ public class ChronicAction extends ActionSupport {
 	 */
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getApds() {
+		return apds;
+	}
+
+	public void setApds(String apds) {
+		this.apds = apds;
+	}
+
+	public List<CurrectChronicDTO> getCcs() {
+		return ccs;
+	}
+
+	public void setCcs(List<CurrectChronicDTO> ccs) {
+		this.ccs = ccs;
 	}
 
 }

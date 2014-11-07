@@ -8,6 +8,7 @@ import java.util.List;
 import com.medical.common.Pager;
 import com.medical.dto.AspApproveDTO;
 import com.medical.dto.ChronicApproveDTO;
+import com.medical.dto.CurrectChronicDTO;
 import com.medical.dto.OrganDTO;
 import com.medical.dto.PersonDTO;
 import com.medical.model.JzAspapproveExample;
@@ -218,5 +219,8 @@ public interface ChronicApproveService {
 			Integer cur_page, String sql);
 
 	public List<ChronicApproveDTO> findApprove2(String string,
+			Integer cur_page, String sql);
+
+	public List<CurrectChronicDTO> findApprove3(String string,
 			Integer cur_page, String sql);
 }

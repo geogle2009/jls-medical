@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 
 import com.medical.common.FileHandle;
 import com.medical.common.Pager;
@@ -23,6 +24,7 @@ import com.medical.dao.MemberBaseinfoDAO;
 import com.medical.dao.SysTOrganizationDAO;
 import com.medical.dto.AspApproveDTO;
 import com.medical.dto.ChronicApproveDTO;
+import com.medical.dto.CurrectChronicDTO;
 import com.medical.dto.OrganDTO;
 import com.medical.dto.PersonDTO;
 import com.medical.model.ExecutSQL;
@@ -188,6 +190,125 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 			e1.printStackTrace();
 		}
 		return list;
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	@Override
+	public List<CurrectChronicDTO> findApprove3(String url, Integer cur_page,
+			String sql) {
+		System.out.println(sql);
+		List<CurrectChronicDTO> list = new ArrayList<CurrectChronicDTO>();
+
+		ExecutSQL executSQL = new ExecutSQL();
+		executSQL.setExecutsql(sql);
+
+		pager.setCurrentpage(cur_page);
+		pager.setUrl(url);
+		pager.setPagesize(16);
+		try {
+			pager.setAll(executSQLDAO.queryCnt(executSQL));
+
+			pager.setUrl(url);
+			pager.getToolsmenu();
+			executSQL.setEnd(pager.getEnd());
+			executSQL.setStart(pager.getStart());
+			List<HashMap> rs = executSQLDAO.queryRow(executSQL);
+			for (HashMap s : rs) {
+				CurrectChronicDTO e = new CurrectChronicDTO();
+				String ENTITYS = (String) s.get("ENTITYS");
+				e.setEntitys(ENTITYS);
+				String ENTITYVAL = (String) s.get("ENTITYVAL");
+				e.setEntityval(ENTITYVAL);
+				BigDecimal APRRESULT1 = (BigDecimal) s.get("APRRESULT1");
+				if (null != APRRESULT1) {
+					e.setAprresult1(APRRESULT1.shortValue());
+				}
+				String APRIDEA1 = (String) s.get("APRIDEA1");
+				e.setApridea1(APRIDEA1);
+				Date APRTIME1 = (Date) s.get("APRTIME1");
+				e.setApptime(APRTIME1);
+				String APRPERSON1 = (String) s.get("APRPERSON1");
+				e.setAprperson1(APRPERSON1);
+				BigDecimal APRRESULT2 = (BigDecimal) s.get("APRRESULT2");
+				if (null != APRRESULT2) {
+					e.setAprresult2(APRRESULT2.shortValue());
+				}
+				String APRIDEA2 = (String) s.get("APRIDEA2");
+				e.setApridea2(APRIDEA2);
+				Date APRTIME2 = (Date) s.get("APRTIME2");
+				e.setAprtime2(APRTIME2);
+				String APRPERSON2 = (String) s.get("APRPERSON2");
+				e.setAprperson2(APRPERSON2);
+
+				BigDecimal APRRESULT3 = (BigDecimal) s.get("APRRESULT3");
+				if (null != APRRESULT3) {
+					e.setAprresult3(APRRESULT3.shortValue());
+				}
+				String APRIDEA3 = (String) s.get("APRIDEA3");
+				e.setApridea3(APRIDEA3);
+				Date APRTIME3 = (Date) s.get("APRTIME3");
+				e.setAprtime3(APRTIME3);
+				String APRPERSON3 = (String) s.get("APRPERSON3");
+				e.setAprperson3(APRPERSON3);
+				BigDecimal APRLEVEL = (BigDecimal) s.get("APRLEVEL");
+				if (null != APRLEVEL) {
+				e.setAprlevel(APRLEVEL.shortValue());}
+				BigDecimal FLAG = (BigDecimal) s.get("FLAG");
+				if (null != FLAG) {
+				e.setFlag(FLAG.shortValue());}
+				BigDecimal STATUS = (BigDecimal) s.get("STATUS");
+				if (null != STATUS) {
+				e.setStatus(STATUS.shortValue());}
+				BigDecimal CHRONICSTATUS_ID1 = (BigDecimal) s
+						.get("CHRONICSTATUS_ID1");
+				e.setChronicstatusId1(CHRONICSTATUS_ID1.longValue());
+				String FAMILY_ID = (String) s.get("FAMILY_ID");
+				e.setFamilyId(FAMILY_ID);
+				String NAME = (String) s.get("NAME");
+				e.setName(NAME);
+				String SSN = (String) s.get("SSN");
+				e.setSsn(SSN);
+				BigDecimal ENTITY = (BigDecimal) s.get("ENTITY");
+				if (null != ENTITY) {
+					e.setEntity(ENTITY.intValue());
+				}
+				String STATE = (String) s.get("STATE");
+				e.setState(STATE);
+				Date APPTIME = (Date) s.get("APPTIME");
+				e.setApptime(APPTIME);
+				String FLAG1 = (String) s.get("FLAG1");
+				e.setFlag1(FLAG1);
+				String MEMBER_ID = (String) s.get("MEMBER_ID");
+				e.setMemberId(MEMBER_ID);
+				String MEMBER_TYPE = (String) s.get("MEMBER_TYPE");
+				e.setMemberType(MEMBER_TYPE);
+				String PAPERID = (String) s.get("PAPERID");
+				e.setPaperid(PAPERID);
+				Date CREATTIME = (Date) s.get("CREATTIME");
+				e.setCreattime(CREATTIME);
+				String ENTITYVALS = (String) s.get("ENTITYVALS");
+				e.setEntityvals(ENTITYVALS);
+				String CAPID = (String) s.get("CAPID");
+				e.setCapid(CAPID);
+				String YW = (String) s.get("YW");
+				e.setYw(YW);
+				String PS = (String) s.get("PS");
+				e.setPs(PS);
+				String AREA = (String) s.get("AREA");
+				e.setArea(AREA);
+				Date CANCELTIME = (Date) s.get("CANCELTIME");
+				e.setCanceltime(CANCELTIME);
+				String CANCELIDEA = (String) s.get("CANCELIDEA");
+				e.setCancelidea(CANCELIDEA);
+				String YWVAL = (String) s.get("YWVAL");
+				e.setYwval(YWVAL);
+				list.add(e);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return list;
+
 	}
 
 	@Override
@@ -606,7 +727,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME1"));
 					e.setSaprtime1(a);
 				} else {
-					e.setSaprtime1("	年	月	日");
+					e.setSaprtime1("年月日");
 				}
 				b = (String) s.get("APRIDEA2");
 				if (null == b || "".equals(b)) {
@@ -624,7 +745,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME2"));
 					e.setSaprtime2(a);
 				} else {
-					e.setSaprtime2("	年	月	日");
+					e.setSaprtime2("年月日");
 				}
 
 				b = (String) s.get("APRIDEA3");
@@ -644,7 +765,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME3"));
 					e.setSaprtime3(a);
 				} else {
-					e.setSaprtime3("	年	月	日");
+					e.setSaprtime3("年月日");
 				}
 				Date BEGINTIME = (Date) s.get("BEGINTIME");
 				if (null != BEGINTIME) {
@@ -717,7 +838,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME1"));
 					e.setSaprtime1(a);
 				} else {
-					e.setSaprtime1("	年	月	日");
+					e.setSaprtime1("年月日");
 				}
 				b = (String) s.get("APRIDEA2");
 				if (null == b || "".equals(b)) {
@@ -735,7 +856,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME2"));
 					e.setSaprtime2(a);
 				} else {
-					e.setSaprtime2("	年	月	日");
+					e.setSaprtime2("年月日");
 				}
 
 				b = (String) s.get("APRIDEA3");
@@ -755,7 +876,7 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 					a = sdf.format((Date) s.get("APRTIME3"));
 					e.setSaprtime3(a);
 				} else {
-					e.setSaprtime3("	年	月	日");
+					e.setSaprtime3("年月日");
 				}
 				Date BEGINTIME = (Date) s.get("BEGINTIME");
 				if (null != BEGINTIME) {
@@ -1458,4 +1579,5 @@ public class ChronicApproveServiceImpl implements ChronicApproveService {
 	public void setSysTOrganizationDAO(SysTOrganizationDAO sysTOrganizationDAO) {
 		this.sysTOrganizationDAO = sysTOrganizationDAO;
 	}
+
 }
