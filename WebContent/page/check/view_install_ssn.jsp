@@ -28,7 +28,6 @@ String basePath = request.getScheme() + "://"
 				"checkDTO.ssn2" : $('#ssn2')[0].value,
 				"checkDTO.ssn3" : $('#ssn3')[0].value
 			}; 
-			alert($('#ssn2')[0].value);
 			$.ajax( {
 				type : "post",
 				url : "page/check/installSsn.action",
