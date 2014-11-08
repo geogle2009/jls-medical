@@ -308,7 +308,24 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		record.setSsn1(checkDTO.getSsn1());
 		record.setSsn2(checkDTO.getSsn2());
 		record.setSsn3(checkDTO.getSsn3());
+		//更新test_ssn表
 		u = testSsnDAO.updateByExampleSelective(record, example);
+		//更新
+		if("1".equals(checkDTO.getDs())){
+			String sql = " update familymember@cs.regress.rdbms.dev.us.oracle.com fcs " 
+							+ " set fcs.indi_id='" + checkDTO.getSsn1()+ "'"
+							+ " where fcs.fm_id='" + checkDTO.getMemberId() + "'";
+			ExecutSQL executSQL = new ExecutSQL();
+			executSQL.setExecutsql(sql);
+			try {
+				executSQLDAO.updateSQL(executSQL);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if("2".equals(checkDTO.getDs())){
+			u=-1;
+		}
 		return u;
 	}
 

@@ -26,7 +26,8 @@ String basePath = request.getScheme() + "://"
 				"checkDTO.memberId" : $('#memberid')[0].value,
 				"checkDTO.ssn1" : $('#ssn1')[0].value,
 				"checkDTO.ssn2" : $('#ssn2')[0].value,
-				"checkDTO.ssn3" : $('#ssn3')[0].value
+				"checkDTO.ssn3" : $('#ssn3')[0].value,
+				"checkDTO.paperid" : $('#paperid')[0].value
 			}; 
 			$.ajax( {
 				type : "post",
@@ -135,6 +136,7 @@ String basePath = request.getScheme() + "://"
 				<s:hidden id="ssn3" name="ybcheckDTO.ssn3"></s:hidden>
 				<s:hidden id="memberid" name="checkDTO.memberId"></s:hidden>
 				<s:hidden id="ds" name="checkDTO.ds"></s:hidden>
+				<s:hidden id="paperid" name="checkDTO.paperid"></s:hidden>
 			</table>
 		</td>
 	</tr>

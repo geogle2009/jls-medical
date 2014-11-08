@@ -22,6 +22,7 @@ import com.medical.dto.UserInfoDTO;
 import com.medical.dto.YBCheckDTO;
 import com.medical.service.BaseinfoService;
 import com.medical.service.SearchService;
+import com.medical.util.IDCardUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -172,7 +173,11 @@ public class CheckAction extends ActionSupport {
 			String name=java.net.URLDecoder.decode(membername , "utf-8");
 			IService1 iService1 = new IService1Proxy();
 			//System.out.println("Webservice开始时间："+System.currentTimeMillis());
-			String xml = iService1.getMedicareInfoSingle(paperid, name);
+			//15位身份证号码要转换为18位
+			if(paperid.length()==15){
+				paperid = IDCardUtil.from15to18(19, paperid);
+			}
+			String xml = iService1.getMedicareInfoSingle(paperid.toUpperCase(), name);
 			//System.out.println("Webservice结束时间："+System.currentTimeMillis());
 			Document document = DocumentHelper.parseText(xml);
 			String resultFlag = document.selectSingleNode(
