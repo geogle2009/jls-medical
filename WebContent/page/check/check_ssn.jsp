@@ -10,7 +10,7 @@
 <script type="text/javascript">
 function checkssn(memberId,ds,paperid,membername){
 	var url="installSsnInit.action?memberId="+memberId+"&ds="+ds+"&paperid="+paperid+"&membername="+encodeURI(encodeURI(membername));
-	window.showModalDialog(url,'',"dialogHeight: 350px; dialogWidth: 700px; center: Yes; resizable: Yes; status: No;");
+	window.showModalDialog(url,'',"dialogHeight: 370px; dialogWidth: 720px; center: Yes; resizable: Yes; status: No;");
 }
 </script>
 </head>
