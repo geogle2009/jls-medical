@@ -1,8 +1,11 @@
 package com.medical.action;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -210,19 +213,53 @@ public class CheckAction extends ActionSupport {
 				ybcheckDTO.setYbmembername(membername);
 				ybcheckDTO.setYbpaperid(paperid);
 				ybcheckDTO.setMessage(message);
+				
 			}
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return SUCCESS;
 	}
 	
 	public String installSsn(){
 		JSONObject json = new JSONObject();
-		int u=baseinfoService.updateTestSsn(checkDTO);
-		json.put("u", u);
+		//int u=baseinfoService.updateTestSsn(checkDTO);
+		//json.put("u", u);
 		result = json.toString();
+		checkDTO = this.baseinfoService.findMemberInfo(checkDTO);
+		String status = "";
+		if ("1".equals(checkDTO.getAssistType().substring(0, 1))
+				&& checkDTO.getAsort().compareTo(new BigDecimal("1"))==0) {
+			status = "2";
+		} else if ("1".equals(checkDTO.getAssistType().substring(0, 1))
+				&& checkDTO.getAsort().compareTo(new BigDecimal("0"))==0) {
+			status = "1";
+		} else {
+			status = "0";
+		}
+		try {
+			IService1 iService1 = new IService1Proxy();
+			String icid = checkDTO.getPaperid();
+			//System.out.println("Webservice开始时间："+System.currentTimeMillis());
+			//15位身份证号码要转换为18位
+			if(checkDTO.getPaperid().length()==15){
+				icid = IDCardUtil.from15to18(19, paperid);
+			}
+			Date currentTime = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			String dateString = formatter.format(currentTime);
+			String xml1 = iService1.setAssistStatusSingle(
+					icid.toUpperCase(), checkDTO.getMembername(), checkDTO.getFamilyno(),
+					status, dateString);
+			System.out.println("---民政to医保同步_start---");
+			System.out.println(xml1);
+			System.out.println("---民政to医保同步_end---");
+		}catch (RemoteException e) {
+				e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 
