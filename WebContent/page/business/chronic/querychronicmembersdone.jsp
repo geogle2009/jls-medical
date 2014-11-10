@@ -49,6 +49,8 @@ function printhr(id){
 		<tr>
 			<td>患病名称：<s:select name="icdid" list="chronics" listKey="key"
 				listValue="value" headerKey='' headerValue="全部"></s:select> &nbsp;
+			审批来源：<s:select name="apds" list="#{'':'全部','民政审批':'民政审批','医保接口核对':'医保来源'}"
+				listKey="key" listValue="value"></s:select>&nbsp;
 			来源：<s:select name="ds" list="#{'':'全部','1':'城市','2':'农村'}"
 				listKey="key" listValue="value"></s:select> 
 				&nbsp;

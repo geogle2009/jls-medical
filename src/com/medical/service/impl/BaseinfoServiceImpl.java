@@ -300,6 +300,8 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 	
 	public int updateTestSsn(CheckDTO checkDTO){
 		int u=0;
+		int m=0;
+		int return_flag=0;
 		TestSsn record = new TestSsn();
 		TestSsnExample example = new TestSsnExample();
 		com.medical.model.TestSsnExample.Criteria criteria = example.createCriteria();
@@ -310,7 +312,15 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		record.setSsn3(checkDTO.getSsn3());
 		//更新test_ssn表
 		u = testSsnDAO.updateByExampleSelective(record, example);
-		//更新
+		//更新member_baseinfo视图
+		MemberBaseinfo record1 = new MemberBaseinfo();
+		MemberBaseinfoExample example1 = new MemberBaseinfoExample();
+		Criteria criteria1 = example1.createCriteria();
+		criteria1.andMemberIdEqualTo(checkDTO.getMemberId());
+		criteria1.andDsEqualTo(checkDTO.getDs());
+		record1.setSsn(checkDTO.getSsn1());
+		m = memberBaseinfoDAO.updateByExampleSelective(record1, example1);
+		//更新城市人员信息表
 		if("1".equals(checkDTO.getDs())){
 			String sql = " update familymember@cs.regress.rdbms.dev.us.oracle.com fcs " 
 							+ " set fcs.indi_id='" + checkDTO.getSsn1()+ "'"
@@ -326,7 +336,12 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		}else if("2".equals(checkDTO.getDs())){
 			u=-1;
 		}
-		return u;
+		if( u==1 && m==1 ){
+			return_flag = 1;
+		}else{
+			return_flag = 0;
+		}
+		return return_flag;
 	}
 
 	public MemberBaseinfoDAO getMemberBaseinfoDAO() {

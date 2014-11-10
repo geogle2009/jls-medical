@@ -286,6 +286,14 @@ public class ChronicAction extends ActionSupport {
 				sql = sql + " and t.member_type='2'";
 			} else {
 			}
+			
+			if ("医保接口核对".equals(apds)) {
+				sql = sql + " and t.APRIDEA1='医保接口核对' and t.APRIDEA2='医保接口核对'";
+			} else if ("民政审批".equals(apds)) {
+				sql = sql + " and (t.APRIDEA1 <> '医保接口核对' or t.APRIDEA2 <> '医保接口核对'" 
+						+ " or t.APRIDEA1 is null or t.APRIDEA2 is null) ";
+			} else {
+			}
 
 			if ("".equals(app1)) {
 			} else if ("1".equals(app1)) {

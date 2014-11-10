@@ -33,7 +33,7 @@ function handle(id,type,mid,mtype){
 		listKey="key" listValue="value">
 	</s:select>&nbsp;&nbsp;
 	查询值：<s:textfield name="value"></s:textfield>&nbsp;&nbsp;
-	审批来源：<s:select name="icdid" list="#{'':'全部','民政审批':'民政审批','医保接口核对':'医保来源'}"
+	审批来源：<s:select name="apds" list="#{'':'全部','民政审批':'民政审批','医保接口核对':'医保来源'}"
 		listKey="key" listValue="value">
 	</s:select>&nbsp;&nbsp;
 	来源：<s:select name="ds" list="#{'':'全部','1':'城市','2':'农村'}"
