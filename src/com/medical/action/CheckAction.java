@@ -229,6 +229,7 @@ public class CheckAction extends ActionSupport {
 		//int u=baseinfoService.updateTestSsn(checkDTO);
 		//json.put("u", u);
 		result = json.toString();
+		//更新医保数据
 		checkDTO = this.baseinfoService.findMemberInfo(checkDTO);
 		String status = "";
 		if ("1".equals(checkDTO.getAssistType().substring(0, 1))
