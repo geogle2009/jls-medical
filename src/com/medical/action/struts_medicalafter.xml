@@ -39,6 +39,20 @@
 			<result name="success">/page/medicalafter/afterapplyview.jsp
 			</result>
 		</action>
-
+		<action name="queryafterinit" class="medicalafterAction"
+			method="queryafterinit">
+			<result name="success">
+				/page/medicalafter/querymedicalafter.jsp
+            </result>
+			<result name="result">
+				/page/medicalafter/error.jsp
+            </result>
+		</action>
+		<action name="queryafter" class="medicalafterAction"
+			method="queryafter">
+			<result name="success">
+				/page/medicalafter/querymedicalafter.jsp
+            </result>
+         </action>
 	</package>
 </struts>

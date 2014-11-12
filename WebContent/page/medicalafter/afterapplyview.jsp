@@ -44,7 +44,7 @@
 			<td colspan="5" width="17%"><s:property value="medicalafterDTO.address"/>&nbsp;</td>
 		</tr>
  		<tr>
-			<td width="17%">保障类别</td>
+			<td width="17%">保险类型</td>
 			<td colspan="5" >
 				<s:if test="medicalafterDTO.insuretype==1">
 					医保	

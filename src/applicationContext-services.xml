@@ -131,6 +131,7 @@
 		scope="request">
 		<property name="baseinfoService" ref="baseinfoService"></property>
 		<property name="searchService" ref="searchService"></property>
+		<property name="businessService" ref="businessService"></property>
 	</bean>
 
 	<!-- Transaction manager for a single JDBC DataSource -->

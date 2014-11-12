@@ -5,8 +5,12 @@ import java.util.Map;
 
 import com.medical.dto.BaseInfoDTO;
 import com.medical.dto.MedicalafterDTO;
+import com.medical.dto.OrganDTO;
 import com.medical.dto.UserInfoDTO;
+import com.medical.model.JzBizExample;
+import com.medical.model.JzMedicalafterExample;
 import com.medical.service.BaseinfoService;
+import com.medical.service.BusinessService;
 import com.medical.service.SearchService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,6 +24,12 @@ public class MedicalafterAction extends ActionSupport {
 	private BaseInfoDTO baseInfoDTO;
 	private List<BaseInfoDTO> baseinfos;
 	private String result;
+	private BusinessService businessService;
+	private List<OrganDTO> orgs;
+	private String cur_page;
+	private String term;
+	private String toolsmenu;
+	private String value;
 	
 	@SuppressWarnings("rawtypes")
 	public String afterquerymemberinit(){
@@ -37,6 +47,7 @@ public class MedicalafterAction extends ActionSupport {
 	public String afterquerymember(){
 		//查询人员基本信息
 		baseinfos = this.baseinfoService.findMemberByPaperId(baseInfoDTO);
+		medicalafters = this.baseinfoService.findMedicalaftersByPaperId(baseInfoDTO);
 		if(baseinfos.size()==0){
 			result = "没有此人信息，请核实！";
 			return "result";
@@ -53,6 +64,57 @@ public class MedicalafterAction extends ActionSupport {
 	public String afterapply(){
 		System.out.println(medicalafterDTO.toString());
 		medicalafterDTO = this.baseinfoService.saveAfterApply(medicalafterDTO);
+		return SUCCESS;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String queryafterinit() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
+		String orgid = userinfo.getOrganizationId();
+		if (4 == orgid.length()) {
+			this.setOrgs(this.businessService.getOrganList(userinfo
+					.getOrganizationId()));
+			return SUCCESS;
+		} else {
+			this.result = "您所在的机构，没有审批权限！";
+			return "result";
+		}
+
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public String queryafter(){
+		Map session = ActionContext.getContext().getSession();
+		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
+		String orgid = userinfo.getOrganizationId();
+
+		JzMedicalafterExample example = new JzMedicalafterExample();
+		if (null == cur_page || "".equals(cur_page)) {
+			com.medical.model.JzMedicalafterExample.Criteria criteria = example
+					.createCriteria();
+			criteria.andFamilynoLike(orgid + "%");
+
+			if ("SSN".equals(term)) {
+				criteria.andSsnLessThan(value + "%");
+			} else if ("FAMILYNO".equals(term)) {
+				criteria.andFamilynoLike(value + "%");
+			} else if ("MEMBERNAME".equals(term)) {
+				criteria.andMembernameLike(value + "%");
+			} else if ("PAPERID".equals(term)) {
+				criteria.andPaperidLike(value + "%");
+			} else {
+			}
+			session.put("sql", example);
+			cur_page = "1";
+		} else {
+			example = (JzMedicalafterExample) session.get("sql");
+		}
+
+		this.setMedicalafters(this.baseinfoService.queryMedicalafters(example, new Integer(
+				cur_page)));
+		this.setToolsmenu(this.businessService.getPager().getToolsmenu());
+		this.setOrgs(this.businessService.getOrganList(orgid));
 		return SUCCESS;
 	}
 
@@ -102,6 +164,54 @@ public class MedicalafterAction extends ActionSupport {
 	}
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public BusinessService getBusinessService() {
+		return businessService;
+	}
+
+	public void setBusinessService(BusinessService businessService) {
+		this.businessService = businessService;
+	}
+
+	public List<OrganDTO> getOrgs() {
+		return orgs;
+	}
+
+	public void setOrgs(List<OrganDTO> orgs) {
+		this.orgs = orgs;
+	}
+
+	public String getCur_page() {
+		return cur_page;
+	}
+
+	public void setCur_page(String cur_page) {
+		this.cur_page = cur_page;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public String getToolsmenu() {
+		return toolsmenu;
+	}
+
+	public void setToolsmenu(String toolsmenu) {
+		this.toolsmenu = toolsmenu;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 	
 }

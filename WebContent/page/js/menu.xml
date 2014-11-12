@@ -194,7 +194,7 @@
 			target="mainFrame">
 		</menu>
 		<menu name="查询"
-			url="/medical/page/contentframe.jsp?url=medicalafter/queryafter.action&amp;nav=农合医后报销审批>>查询"
+			url="/medical/page/contentframe.jsp?url=medicalafter/queryafterinit.action&amp;nav=农合医后报销审批>>查询"
 			target="mainFrame">
 		</menu>
 	</menu>

@@ -62,27 +62,38 @@
 		<th>业务类别</th>
 		<th>救助时间</th>
 		<th>总费用（元）</th>
-		<th>统筹费用（元）</th>
-		<th>目录外费用（元）</th>
+		<th>报销金额（医保/农合）（元）</th>
+		<th>不参与补偿金额（元）</th>
 		<th>大病保险金额（元）</th>
 		<th>商业保险金额（元）</th>
 		<th>救助金额（元）</th>
 		<th>保险类型</th>
 		<th>审批状态</th>
 	</tr>
-	<s:iterator value="medicalafterbizs">
+	<s:iterator value="medicalafters">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><s:property value="membername"/></td>
+			<td>
+				<s:if test="medicaltype==0">住院</s:if>
+				<s:elseif test="medicaltype==1">门诊</s:elseif>
+			</td>
+			<td><s:date name="updatetime" format="yyyy-MM-dd"/></td>
+			<td><s:property value="totalcost"/></td>
+			<td><s:property value="insurepay"/></td>
+			<td><s:property value="outpay"/></td>
+			<td><s:property value="capay"/></td>
+			<td><s:property value="businesspay"/></td>
+			<td><s:property value="asisstpay"/></td>
+			<td>
+				<s:if test="insuretype==1">医保</s:if>
+				<s:elseif test="insuretype==2">农合</s:elseif>
+				<s:elseif test="insuretype==3">其他</s:elseif>
+			</td>
+			<td>
+				<s:if test="approveresult==1">同意救助</s:if>
+				<s:elseif test="approveresult==0">不同意救助</s:elseif>
+				<s:elseif test="medicaltype==-1">作废</s:elseif>
+			</td>
 		</tr>
 	</s:iterator>
 </table>

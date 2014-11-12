@@ -75,7 +75,7 @@
 			<td colspan="5" width="17%"><s:property value="medicalafterDTO.address"/>&nbsp;</td>
 		</tr>
  		<tr>
-			<td width="17%">保障类别</td>
+			<td width="17%">保险类型</td>
 			<td colspan="5" ><s:radio id="insuretype" name="medicalafterDTO.insuretype" list="%{#{'1':'医保','2':'农合','3':'其他'}}"></s:radio>&nbsp;</td>
 		</tr>
 		<tr>

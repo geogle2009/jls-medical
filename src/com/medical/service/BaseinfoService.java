@@ -7,6 +7,7 @@ import com.medical.dto.BaseInfoDTO;
 import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
 import com.medical.dto.MedicalafterDTO;
+import com.medical.model.JzMedicalafterExample;
 
 public interface BaseinfoService {
 	// 低保户信息列表查询
@@ -32,4 +33,8 @@ public interface BaseinfoService {
 	public MedicalafterDTO findMemberByID(BaseInfoDTO baseInfoDTO);
 	
 	public MedicalafterDTO saveAfterApply(MedicalafterDTO medicalafterDTO);
+	
+	public List<MedicalafterDTO> findMedicalaftersByPaperId(BaseInfoDTO baseInfoDTO);
+	
+	public List<MedicalafterDTO> queryMedicalafters(JzMedicalafterExample example,Integer curpage);
 }

@@ -19,10 +19,12 @@ import com.medical.dto.BizDTO;
 import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
 import com.medical.dto.MedicalafterDTO;
+import com.medical.dto.VbizDTO;
 import com.medical.model.ExecutSQL;
 import com.medical.model.JzBiz;
 import com.medical.model.JzBizExample;
 import com.medical.model.JzMedicalafter;
+import com.medical.model.JzMedicalafterExample;
 import com.medical.model.MemberBaseinfo;
 import com.medical.model.MemberBaseinfoExample;
 import com.medical.model.MemberBaseinfoExample.Criteria;
@@ -380,6 +382,93 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 			mbdtos.add(e);
 		}
 		return mbdtos;
+	}
+	
+	public List<MedicalafterDTO> findMedicalaftersByPaperId(BaseInfoDTO baseInfoDTO){
+		List<MedicalafterDTO> madtos = new ArrayList<MedicalafterDTO>();
+		JzMedicalafterExample example = new JzMedicalafterExample();
+		com.medical.model.JzMedicalafterExample.Criteria criteria = example.createCriteria();
+		criteria.andPaperidEqualTo(baseInfoDTO.getPaperid());
+		List<JzMedicalafter> info = jzMedicalafterDAO.selectByExample(example);
+		for (JzMedicalafter s : info) {
+			MedicalafterDTO e = new MedicalafterDTO();
+			e.setMaId(s.getMaId());
+			e.setFamilyno(s.getFamilyno());
+			e.setMembername(s.getMembername());
+			e.setPaperid(s.getPaperid());
+			e.setSsn(s.getSsn());
+			e.setHospital(s.getHospital());
+			e.setHospitallevel(s.getHospitallevel());
+			e.setSickencontent(s.getSickencontent());
+			e.setBegintime(s.getBegintime());
+			e.setEndtime(s.getEndtime());
+			e.setApproveresult(s.getApproveresult());
+			e.setApprovecontent(s.getApprovecontent());
+			e.setTotalcost(s.getTotalcost());
+			e.setInsurepay(s.getInsurepay());
+			e.setOutpay(s.getOutpay());
+			e.setCapay(s.getCapay());
+			e.setBusinesspay(s.getBusinesspay());
+			e.setAsisstpay(s.getAsisstpay());
+			e.setCreatetime(s.getCreatetime());
+			e.setUpdatetime(s.getUpdatetime());
+			e.setMemberId(s.getMemberId());
+			e.setMemberType(s.getMemberType());
+			e.setImplsts(s.getImplsts());
+			e.setTiketno(s.getTiketno());
+			e.setMedicaltype(s.getMedicaltype());
+			e.setInsuretype(s.getInsuretype());
+			e.setPersontype(s.getPersontype());
+			madtos.add(e);
+		}
+		return madtos;
+	}
+	
+	public List<MedicalafterDTO> queryMedicalafters(JzMedicalafterExample example,Integer curpage){
+		List<JzMedicalafter> info = jzMedicalafterDAO.selectByExample(example);
+		List<MedicalafterDTO> madtos = new ArrayList<MedicalafterDTO>();
+
+		pager.setAll(info.size());
+		pager.setUrl("queryafter.action");
+		pager.setCurrentpage(curpage.intValue());
+		pager.setPagesize(14);
+		pager.getToolsmenu();
+		
+		for (int i = 0; i < pager.getPagesize(); i++) {
+			if (pager.getStart() + i < pager.getAll()) {
+				JzMedicalafter s = info.get(pager.getStart() + i);
+				MedicalafterDTO e = new MedicalafterDTO();
+				e.setMaId(s.getMaId());
+				e.setFamilyno(s.getFamilyno());
+				e.setMembername(s.getMembername());
+				e.setPaperid(s.getPaperid());
+				e.setSsn(s.getSsn());
+				e.setHospital(s.getHospital());
+				e.setHospitallevel(s.getHospitallevel());
+				e.setSickencontent(s.getSickencontent());
+				e.setBegintime(s.getBegintime());
+				e.setEndtime(s.getEndtime());
+				e.setApproveresult(s.getApproveresult());
+				e.setApprovecontent(s.getApprovecontent());
+				e.setTotalcost(s.getTotalcost());
+				e.setInsurepay(s.getInsurepay());
+				e.setOutpay(s.getOutpay());
+				e.setCapay(s.getCapay());
+				e.setBusinesspay(s.getBusinesspay());
+				e.setAsisstpay(s.getAsisstpay());
+				e.setCreatetime(s.getCreatetime());
+				e.setUpdatetime(s.getUpdatetime());
+				e.setMemberId(s.getMemberId());
+				e.setMemberType(s.getMemberType());
+				e.setImplsts(s.getImplsts());
+				e.setTiketno(s.getTiketno());
+				e.setMedicaltype(s.getMedicaltype());
+				e.setInsuretype(s.getInsuretype());
+				e.setPersontype(s.getPersontype());
+				madtos.add(e);
+			}
+		}
+		return madtos;
 	}
 	
 	public MedicalafterDTO findMemberByID(BaseInfoDTO baseInfoDTO){
