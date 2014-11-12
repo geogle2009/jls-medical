@@ -65,8 +65,13 @@
 			value="true" /> <generatedKey column="CHRONICAPPROVE_ID" sqlStatement="select 
 			XCHRONICAPPROVE_ID.nextval from dual" /> </table> 
 			 <table schema="yljzn" tableName="V_CHRONIC">
-			<property name="ignoreQualifiersAtRuntime" value="true" /></table> -->
+			<property name="ignoreQualifiersAtRuntime" value="true" /></table>
 			<table schema="yljzn" tableName="CURRECT_CHRONIC"> <property 
-			name="ignoreQualifiersAtRuntime" value="true" />   </table>
+			name="ignoreQualifiersAtRuntime" value="true" />   </table> -->
+			<table schema="yljzn" tableName="JZ_MEDICALAFTER">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<generatedKey column="MA_ID"
+				sqlStatement="select CC.nextval from dual" /> 
+			</table>
 	</ibatorContext>
 </ibatorConfiguration>

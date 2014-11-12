@@ -3,6 +3,7 @@ package com.medical.service.impl;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,14 +11,18 @@ import java.util.List;
 import com.medical.common.Pager;
 import com.medical.dao.ExecutSQLDAO;
 import com.medical.dao.JzBizDAO;
+import com.medical.dao.JzMedicalafterDAO;
 import com.medical.dao.MemberBaseinfoDAO;
 import com.medical.dao.TestSsnDAO;
+import com.medical.dto.BaseInfoDTO;
 import com.medical.dto.BizDTO;
 import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
+import com.medical.dto.MedicalafterDTO;
 import com.medical.model.ExecutSQL;
 import com.medical.model.JzBiz;
 import com.medical.model.JzBizExample;
+import com.medical.model.JzMedicalafter;
 import com.medical.model.MemberBaseinfo;
 import com.medical.model.MemberBaseinfoExample;
 import com.medical.model.MemberBaseinfoExample.Criteria;
@@ -32,6 +37,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 	private Pager pager;
 	private String toolsmenu;
 	private TestSsnDAO testSsnDAO;
+	private JzMedicalafterDAO jzMedicalafterDAO;
 
 	@Override
 	public HealthDTO findByMemberId(String memberId,String ds) {
@@ -343,6 +349,97 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		}
 		return return_flag;
 	}
+	
+	public List<BaseInfoDTO> findMemberByPaperId(BaseInfoDTO baseInfoDTO){
+		List<BaseInfoDTO> mbdtos = new ArrayList<BaseInfoDTO>();
+		MemberBaseinfoExample example = new MemberBaseinfoExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPaperidEqualTo(baseInfoDTO.getPaperid());
+		criteria.andPersonstateEqualTo("Õý³£");
+		List<String> values = new ArrayList<String>();
+		values.add("10");
+		values.add("11");
+		criteria.andAssistTypeIn(values);
+		List<MemberBaseinfo> info = memberBaseinfoDAO.selectByExample(example);
+		for (MemberBaseinfo s : info) {
+			BaseInfoDTO e = new BaseInfoDTO();
+			e.setFamilyno(s.getFamilyno());
+			e.setMembername(s.getMembername());
+			e.setMasterName(s.getMasterName());
+			e.setSex(s.getSex());
+			e.setAddress(s.getAddress());
+			e.setPaperid(s.getPaperid());
+			e.setSsn(s.getSsn());
+			e.setDs(s.getDs());
+			e.setMemberId(s.getMemberId());
+			e.setAssistType(s.getAssistType());
+			e.setAsort(s.getAsort());
+			e.setPersonstate(s.getPersonstate());
+			e.setMasterName(s.getMasterName());
+			e.setRelmaster(s.getRelmaster());
+			mbdtos.add(e);
+		}
+		return mbdtos;
+	}
+	
+	public MedicalafterDTO findMemberByID(BaseInfoDTO baseInfoDTO){
+		MedicalafterDTO e = new MedicalafterDTO();
+		MemberBaseinfoExample example = new MemberBaseinfoExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andMemberIdEqualTo(baseInfoDTO.getMemberId());
+		criteria.andDsEqualTo(baseInfoDTO.getDs());
+		MemberBaseinfo s = memberBaseinfoDAO.selectByExample(example).get(0);
+		e.setFamilyno(s.getFamilyno());
+		e.setMembername(s.getMembername());
+		e.setMasterName(s.getMasterName());
+		e.setSex(s.getSex());
+		e.setAddress(s.getAddress());
+		e.setPaperid(s.getPaperid());
+		e.setSsn(s.getSsn());
+		e.setMemberType(s.getDs());
+		e.setMemberId(s.getMemberId());
+		e.setAssistType(s.getAssistType());
+		e.setAsort(s.getAsort());
+		e.setPersonstate(s.getPersonstate());
+		e.setRelmaster(s.getRelmaster());
+		return e;
+	}
+	
+	public MedicalafterDTO saveAfterApply(MedicalafterDTO medicalafterDTO) {
+		JzMedicalafter record = new JzMedicalafter();
+		if (null == medicalafterDTO.getMaId()) {
+			record.setFamilyno(medicalafterDTO.getFamilyno());
+			record.setMembername(medicalafterDTO.getMembername());
+			record.setPaperid(medicalafterDTO.getPaperid());
+			record.setSsn(medicalafterDTO.getSsn());
+			record.setHospital(medicalafterDTO.getHospital());
+			record.setHospitallevel(medicalafterDTO.getHospitallevel());
+			record.setSickencontent(medicalafterDTO.getSickencontent());
+			record.setBegintime(medicalafterDTO.getBegintime());
+			record.setEndtime(medicalafterDTO.getEndtime());
+			record.setApproveresult(medicalafterDTO.getApproveresult());
+			record.setTotalcost(medicalafterDTO.getTotalcost());
+			record.setInsurepay(medicalafterDTO.getInsurepay());
+			record.setOutpay(medicalafterDTO.getOutpay());
+			record.setCapay(medicalafterDTO.getCapay());
+			record.setBusinesspay(medicalafterDTO.getBusinesspay());
+			record.setAsisstpay(medicalafterDTO.getAsisstpay());
+			record.setCreatetime(new Date());
+			record.setUpdatetime(record.getCreatetime());
+			record.setMemberId(medicalafterDTO.getMemberId());
+			record.setMemberType(medicalafterDTO.getMemberType());
+			record.setImplsts("0");
+			record.setTiketno(medicalafterDTO.getTiketno());
+			record.setMedicaltype(medicalafterDTO.getMedicaltype());
+			record.setInsuretype(medicalafterDTO.getInsuretype());
+			record.setPersontype(medicalafterDTO.getPersontype());
+			BigDecimal id = jzMedicalafterDAO.insertSelective(record);
+			medicalafterDTO.setMaId(id);
+		} else {
+			//jzMedicalafterDAO.updateByPrimaryKeySelective(record);
+		}
+		return medicalafterDTO;
+	}
 
 	public MemberBaseinfoDAO getMemberBaseinfoDAO() {
 		return memberBaseinfoDAO;
@@ -390,6 +487,14 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 
 	public void setTestSsnDAO(TestSsnDAO testSsnDAO) {
 		this.testSsnDAO = testSsnDAO;
+	}
+
+	public JzMedicalafterDAO getJzMedicalafterDAO() {
+		return jzMedicalafterDAO;
+	}
+
+	public void setJzMedicalafterDAO(JzMedicalafterDAO jzMedicalafterDAO) {
+		this.jzMedicalafterDAO = jzMedicalafterDAO;
 	}
 
 }

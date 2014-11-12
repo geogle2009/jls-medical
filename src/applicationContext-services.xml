@@ -48,6 +48,7 @@
 		<property name="jzBizDAO" ref="jzBizDAO"></property>
 		<property name="pager" ref="pager"></property>
 		<property name="testSsnDAO" ref="testSsnDAO"></property>
+		<property name="jzMedicalafterDAO" ref="jzMedicalafterDAO"></property>
 	</bean>
 	<bean id="emeCheckService" class="com.medical.service.impl.EmeCheckServiceImpl">
 		<property name="pager" ref="pager"></property>
@@ -122,6 +123,11 @@
 		<property name="chronicBillService" ref="chronicBillService"></property>
 	</bean>
 	<bean id="checkAction" class="com.medical.action.CheckAction"
+		scope="request">
+		<property name="baseinfoService" ref="baseinfoService"></property>
+		<property name="searchService" ref="searchService"></property>
+	</bean>
+	<bean id="medicalafterAction" class="com.medical.action.MedicalafterAction"
 		scope="request">
 		<property name="baseinfoService" ref="baseinfoService"></property>
 		<property name="searchService" ref="searchService"></property>

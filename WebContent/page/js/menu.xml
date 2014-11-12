@@ -188,6 +188,16 @@
 			target="mainFrame">
 		</menu>
 	</menu>
+	<menu name="农合医后报销审批">
+		<menu name="审批"
+			url="/medical/page/contentframe.jsp?url=medicalafter/afterquerymemberinit.action&amp;nav=农合医后报销审批>>审批"
+			target="mainFrame">
+		</menu>
+		<menu name="查询"
+			url="/medical/page/contentframe.jsp?url=medicalafter/queryafter.action&amp;nav=农合医后报销审批>>查询"
+			target="mainFrame">
+		</menu>
+	</menu>
 	<menu name="社会救助卡预览">
 		<menu name="日常救助制卡预览"
 			url="/medical/page/contentframe.jsp?url=business/chronic/querychronicmemberscard.jsp&amp;nav=社会救助卡预览>>日常救助制卡预览"

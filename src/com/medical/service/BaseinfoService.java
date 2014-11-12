@@ -3,8 +3,10 @@ package com.medical.service;
 import java.util.List;
 
 import com.medical.common.Pager;
+import com.medical.dto.BaseInfoDTO;
 import com.medical.dto.CheckDTO;
 import com.medical.dto.HealthDTO;
+import com.medical.dto.MedicalafterDTO;
 
 public interface BaseinfoService {
 	// 低保户信息列表查询
@@ -24,4 +26,10 @@ public interface BaseinfoService {
 	public CheckDTO findMemberInfo(CheckDTO checkDTO);
 	
 	public int updateTestSsn(CheckDTO checkDTO);
+	
+	public List<BaseInfoDTO> findMemberByPaperId(BaseInfoDTO baseInfoDTO);
+	
+	public MedicalafterDTO findMemberByID(BaseInfoDTO baseInfoDTO);
+	
+	public MedicalafterDTO saveAfterApply(MedicalafterDTO medicalafterDTO);
 }
