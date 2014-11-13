@@ -31,6 +31,7 @@ public class MedicalafterDTO {
 	    private String medicaltype;
 	    private String insuretype;
 	    private String persontype;
+	    private String onNo;
 	    
 	    private String masterName;
 	    private String sex;
@@ -251,4 +252,11 @@ public class MedicalafterDTO {
 		public void setRelmaster(String relmaster) {
 			this.relmaster = relmaster;
 		}
+		public String getOnNo() {
+			return onNo;
+		}
+		public void setOnNo(String onNo) {
+			this.onNo = onNo;
+		}
+
 }

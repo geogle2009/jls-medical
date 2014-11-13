@@ -379,6 +379,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 			e.setPersonstate(s.getPersonstate());
 			e.setMasterName(s.getMasterName());
 			e.setRelmaster(s.getRelmaster());
+			e.setOnNo(s.getOnNo());
 			mbdtos.add(e);
 		}
 		return mbdtos;
@@ -419,6 +420,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 			e.setMedicaltype(s.getMedicaltype());
 			e.setInsuretype(s.getInsuretype());
 			e.setPersontype(s.getPersontype());
+			e.setOnNo(s.getOnNo());
 			madtos.add(e);
 		}
 		return madtos;
@@ -491,6 +493,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 		e.setAsort(s.getAsort());
 		e.setPersonstate(s.getPersonstate());
 		e.setRelmaster(s.getRelmaster());
+		e.setOnNo(s.getOnNo());
 		return e;
 	}
 	
@@ -522,6 +525,7 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 			record.setMedicaltype(medicalafterDTO.getMedicaltype());
 			record.setInsuretype(medicalafterDTO.getInsuretype());
 			record.setPersontype(medicalafterDTO.getPersontype());
+			record.setOnNo(medicalafterDTO.getOnNo());
 			BigDecimal id = jzMedicalafterDAO.insertSelective(record);
 			medicalafterDTO.setMaId(id);
 		} else {

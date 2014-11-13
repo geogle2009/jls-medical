@@ -62,7 +62,6 @@ public class MedicalafterAction extends ActionSupport {
 		return SUCCESS;
 	}
 	public String afterapply(){
-		System.out.println(medicalafterDTO.toString());
 		medicalafterDTO = this.baseinfoService.saveAfterApply(medicalafterDTO);
 		return SUCCESS;
 	}
@@ -88,13 +87,13 @@ public class MedicalafterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
 		String orgid = userinfo.getOrganizationId();
-
+		String orgidnj = orgid.substring(0, 2)+"0"+orgid.substring(2);
+		System.out.println(orgidnj);
 		JzMedicalafterExample example = new JzMedicalafterExample();
 		if (null == cur_page || "".equals(cur_page)) {
 			com.medical.model.JzMedicalafterExample.Criteria criteria = example
 					.createCriteria();
-			criteria.andFamilynoLike(orgid + "%");
-
+			criteria.andOnNoLike(orgid + "%");
 			if ("SSN".equals(term)) {
 				criteria.andSsnLessThan(value + "%");
 			} else if ("FAMILYNO".equals(term)) {

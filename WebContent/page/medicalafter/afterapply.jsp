@@ -43,6 +43,7 @@
 	<s:hidden name="medicalafterDTO.masterName"></s:hidden>
 	<s:hidden name="medicalafterDTO.relmaster"></s:hidden>
 	<s:hidden name="medicalafterDTO.address"></s:hidden>
+	<s:hidden name="medicalafterDTO.onNo"></s:hidden>
 	<s:hidden name="medicalafterDTO.persontype" value="%{medicalafterDTO.assistType}%{medicalafterDTO.asort}"></s:hidden>
 	<table align="center" width="100%" class="t1" border="0" cellpadding="0"
 		cellspacing="0">

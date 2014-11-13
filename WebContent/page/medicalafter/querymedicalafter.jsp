@@ -54,9 +54,9 @@
 		<tr>
 			<td width="6%"><s:property value="familyno"/></td>
 			<td width="4%"><s:property value="membername"/></td>
-			<td width="8%"><s:property value="paperid"/></td>
+			<td width="9%"><s:property value="paperid"/></td>
 			<td width="9%"><s:property value="ssn"/></td>
-			<td width="12%"><s:property value="hospital"/></td>
+			<td width="13%"><s:property value="hospital"/></td>
 			<td width="3%">
 				<s:if test="hospitallevel==1">省级</s:if>
 				<s:elseif test="hospitallevel==2">市级</s:elseif>
@@ -66,24 +66,24 @@
 				<s:if test="medicaltype==0">住院</s:if>
 				<s:elseif test="medicaltype==1">门诊</s:elseif>
 			</td>
-			<td width="5%"><s:date name="begintime" format="yyyy-MM-dd"/></td>
-			<td width="5%"><s:date name="endtime" format="yyyy-MM-dd"/></td>
-			<td width="5%" align="right"><s:property value="totalcost"/></td>
-			<td width="5%" align="right"><s:property value="insurepay"/></td>
-			<td width="5%" align="right"><s:property value="outpay"/></td>
-			<td width="5%" align="right"><s:property value="capay"/></td>
-			<td width="5%" align="right"><s:property value="businesspay"/></td>
-			<td width="5%" align="right"><s:property value="asisstpay"/></td>
-			<td width="5%"><s:date name="updatetime" format="yyyy-MM-dd"/></td>
+			<td width="6%"><s:date name="begintime" format="yyyy-MM-dd"/></td>
+			<td width="6%"><s:date name="endtime" format="yyyy-MM-dd"/></td>
+			<td width="4%" align="right"><s:property value="totalcost"/></td>
+			<td width="4%" align="right"><s:property value="insurepay"/></td>
+			<td width="4%" align="right"><s:property value="outpay"/></td>
+			<td width="4%" align="right"><s:property value="capay"/></td>
+			<td width="4%" align="right"><s:property value="businesspay"/></td>
+			<td width="4%" align="right"><s:property value="asisstpay"/></td>
+			<td width="6%"><s:date name="updatetime" format="yyyy-MM-dd"/></td>
 			<td width="3%">
 				<s:if test="insuretype==1">医保</s:if>
 				<s:elseif test="insuretype==2">农合</s:elseif>
 				<s:elseif test="insuretype==3">其他</s:elseif>
 			</td>
-			<td width="5%">
+			<td width="6%">
 				<s:if test="approveresult==1">同意救助</s:if>
 				<s:elseif test="approveresult==0">不同意救助</s:elseif>
-				<s:elseif test="medicaltype==-1">作废</s:elseif>
+				<s:elseif test="approveresult==-1">作废</s:elseif>
 			</td>
 		</tr>
 	</s:iterator>
