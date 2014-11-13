@@ -41,7 +41,7 @@ public class MedicalafterAction extends ActionSupport {
 		if(user.getOrganizationId().length()==4){
 			
 		}else{
-			result = "没有权限！";
+			result = "您所在的机构，没有审批权限！";
 			return "result";
 		}
 		return SUCCESS;
@@ -79,7 +79,7 @@ public class MedicalafterAction extends ActionSupport {
 					.getOrganizationId()));
 			return SUCCESS;
 		} else {
-			this.result = "您所在的机构，没有审批权限！";
+			this.result = "您所在的机构，没有查询权限！";
 			return "result";
 		}
 
