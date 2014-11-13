@@ -15,7 +15,7 @@
 		name="oid" list="orgs" listKey="orgid" listValue="orgname"></s:select>
 	查询条件：
 	<s:select value="term" name="term"
-		list="#{'':'全部','SSN':'社会保险号','FAMILYNO':'家庭编号','MEMBERNAME':'姓名'}"
+		list="#{'':'全部','SSN':'社会保险号','FAMILYNO':'家庭编号','MEMBERNAME':'姓名','PAPERID':'身份证号码'}"
 		label="查询条件：" listKey="key" listValue="value">
 	</s:select>
 	操作符：

@@ -26,8 +26,11 @@ public class MedicalafterAction extends ActionSupport {
 	private String result;
 	private BusinessService businessService;
 	private List<OrganDTO> orgs;
+	
 	private String cur_page;
 	private String term;
+	private String oid;
+	private String operational;
 	private String toolsmenu;
 	private String value;
 	
@@ -87,15 +90,13 @@ public class MedicalafterAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		UserInfoDTO userinfo = (UserInfoDTO) session.get("user");
 		String orgid = userinfo.getOrganizationId();
-		String orgidnj = orgid.substring(0, 2)+"0"+orgid.substring(2);
-		System.out.println(orgidnj);
 		JzMedicalafterExample example = new JzMedicalafterExample();
 		if (null == cur_page || "".equals(cur_page)) {
 			com.medical.model.JzMedicalafterExample.Criteria criteria = example
 					.createCriteria();
-			criteria.andOnNoLike(orgid + "%");
+			criteria.andOnNoLike(oid + "%");
 			if ("SSN".equals(term)) {
-				criteria.andSsnLessThan(value + "%");
+				criteria.andSsnLike(value + "%");
 			} else if ("FAMILYNO".equals(term)) {
 				criteria.andFamilynoLike(value + "%");
 			} else if ("MEMBERNAME".equals(term)) {
@@ -211,6 +212,22 @@ public class MedicalafterAction extends ActionSupport {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getOid() {
+		return oid;
+	}
+
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+
+	public String getOperational() {
+		return operational;
+	}
+
+	public void setOperational(String operational) {
+		this.operational = operational;
 	}
 	
 }
