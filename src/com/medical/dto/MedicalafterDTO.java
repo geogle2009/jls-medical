@@ -32,6 +32,8 @@ public class MedicalafterDTO {
 	    private String insuretype;
 	    private String persontype;
 	    private String onNo;
+	    private BigDecimal payLine;
+	    private BigDecimal hospitalpay;
 	    
 	    private String masterName;
 	    private String sex;
@@ -257,6 +259,18 @@ public class MedicalafterDTO {
 		}
 		public void setOnNo(String onNo) {
 			this.onNo = onNo;
+		}
+		public BigDecimal getPayLine() {
+			return payLine;
+		}
+		public void setPayLine(BigDecimal payLine) {
+			this.payLine = payLine;
+		}
+		public BigDecimal getHospitalpay() {
+			return hospitalpay;
+		}
+		public void setHospitalpay(BigDecimal hospitalpay) {
+			this.hospitalpay = hospitalpay;
 		}
 
 }

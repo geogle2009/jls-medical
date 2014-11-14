@@ -526,6 +526,8 @@ public class BaseinfoServiceImpl implements BaseinfoService {
 			record.setInsuretype(medicalafterDTO.getInsuretype());
 			record.setPersontype(medicalafterDTO.getPersontype());
 			record.setOnNo(medicalafterDTO.getOnNo());
+			record.setPayLine(medicalafterDTO.getPayLine());
+			record.setHospitalpay(medicalafterDTO.getHospitalpay());
 			BigDecimal id = jzMedicalafterDAO.insertSelective(record);
 			medicalafterDTO.setMaId(id);
 		} else {
